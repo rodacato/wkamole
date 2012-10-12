@@ -1,2 +1,3 @@
-require './phantom'
+require "./phantom"
+
 run Sinatra::Application
