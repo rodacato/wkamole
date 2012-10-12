@@ -2,9 +2,14 @@ require 'rubygems'
 require 'sinatra'
 
 get '/colors' do
-  `phantomjs lib/colors.js http://www.crowdvoice.org`
+  x = `phantomjs lib/colors.js http://metalabdesign.com/`
+  x
 end
 
 get '/typography' do
-  `phantomjs lib/typography.js http://www.crowdvoice.org`
+  x = `phantomjs lib/typography.js http://www.crowdvoice.org`
+
+  arr = eval(x)
+
+  arr.first
 end
