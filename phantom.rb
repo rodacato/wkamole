@@ -2,7 +2,7 @@ require 'rubygems'
 require 'sinatra'
 
 get '/colors' do
-  x = `phantomjs lib/colors.js http://metalabdesign.com/`
+  x = `phantomjs lib/colors.js http://theindustry.cc`
   x
 end
 
