@@ -34,7 +34,7 @@ module WkaMole
 
     get '/:site/typography' do
       content_type 'text/css', :charset => 'utf-8'
-      res = `phantomjs lib/typography.js http://www.#{params[:site]}`
+      res = `./vendor/phantomjs/bin/phantomjs lib/typography.js http://www.#{params[:site]}`
 
       "// For: #{params[:site]} \n\n #{res}"
     end
