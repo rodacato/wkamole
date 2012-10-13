@@ -24,7 +24,7 @@ module WkaMole
     end
 
     get '/' do
-      raise "Sinatra has left the building"
+      "Waka waka, waa wa waaa!"
     end
 
     get '/:site/colors' do
