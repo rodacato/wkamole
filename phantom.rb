@@ -40,8 +40,9 @@ module WkaMole
     end
 
     get '/:site/colors' do
-   	  res = `#{settings.phantom_cmd} lib/color.js http://www.#{params[:site]}`
-  	  res
+      @res = `phantomjs lib/colors.js http://www.#{params[:site]}`
+      @res = JSON.parse(@res)
+      erb :colors
     end
 
     get '/:site/typography' do
