@@ -1,4 +1,5 @@
 *.swp
 .DS_Store
 .rvmrc
+*.orig
 public/images/screenshots/*.jpg
