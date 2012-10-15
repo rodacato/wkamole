@@ -2,6 +2,7 @@
   <script src="/javascripts/includes/mustache.js" type="text/javascript" charset="utf-8"></script>
   <script src="/javascripts/includes/quantize.js" type="text/javascript" charset="utf-8"></script>
   <script src="/javascripts/includes/color-thief.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/implicit-colors.js" type="text/javascript" charset="utf-8"></script>
 
   <style>
     <%= @typos %>
@@ -11,7 +12,6 @@
 <div>
   <a target="_blank" href="<%= params[:site] %>"><h1 class="site-title">&nbsp;&nbsp;<%= params[:site] %></h1></a>
 </div>
-
 
 
 <div class="section-container typography">
@@ -73,6 +73,6 @@
 
 <script id="color-template" type="text/x-mustache">
   {{#colors}}
-    <div class="swatch" style="background-color: rgb({{color}})"></div>
+    <div class="swatch" style="background-color: rgb({{color}})">{{color_hex}}</div>
   {{/colors}}
 </script>
