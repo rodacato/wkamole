@@ -14,7 +14,7 @@ $(document).ready(function () {
         appendColors([dominantColor], dominantSwatch);
 
         // Palette
-        var medianPalette = createPalette(image, 10);
+        var medianPalette = createPalette(image, 15);
         var medianCutPalette = $('.colorsWrap .palette');
         appendColors(medianPalette, medianCutPalette);
 	});
