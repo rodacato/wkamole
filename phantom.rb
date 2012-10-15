@@ -53,7 +53,7 @@ module WkaMole
       erb :colors
     end
 
-    get '/:site/colors-implicit' do
+    get '/:site/colors' do
       res = `#{settings.phantom_cmd} lib/color.js http://www.#{params[:site]}`
       res
     end

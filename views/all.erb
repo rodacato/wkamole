@@ -1,13 +1,17 @@
 <% content_for :head do %>
+  <script src="/javascripts/includes/mustache.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/includes/quantize.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/includes/color-thief.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/javascripts/implicit-colors.js" type="text/javascript" charset="utf-8"></script>
+
   <style>
-    <%= @res %>
+    <%= @typos %>
   </style>
 <% end %>
 
 <div>
-  <h1 class="site-title">&nbsp;&nbsp;<%= params[:site] %></h1>
+  <a target="_blank" href="<%= params[:site] %>"><h1 class="site-title">&nbsp;&nbsp;<%= params[:site] %></h1></a>
 </div>
-
 
 
 <div class="section-container typography">
@@ -56,22 +60,19 @@
     <img class="targetImage" src="<%= @screenshot%>" data-colorcount="">
   </div>
   <div class="colorsWrap">
-    <div>
+    <div class="dominant">
       <h3>Dominant Color</h3>
-      <div class="swatch" style="background-color: rgb(127, 184, 179); "></div>
     </div>
-
-    <div>
+    <div class="palette">
       <h3>Palette</h3>
-      <div class="swatch" style="background-color: rgb(53, 33, 23); "></div>
-      <div class="swatch" style="background-color: rgb(217, 190, 141); "></div>
-      <div class="swatch" style="background-color: rgb(101, 204, 225); "></div>
-      <div class="swatch" style="background-color: rgb(159, 172, 113); "></div>
-      <div class="swatch" style="background-color: rgb(136, 120, 42); "></div>
-      <div class="swatch" style="background-color: rgb(125, 114, 101); "></div>
-      <div class="swatch" style="background-color: rgb(34, 127, 141); "></div>
-      <div class="swatch" style="background-color: rgb(175, 185, 178); "></div>
-      <div class="swatch" style="background-color: rgb(211, 85, 6); "></div>
     </div>
   </div>
 </div>
+
+
+
+<script id="color-template" type="text/x-mustache">
+  {{#colors}}
+    <div class="swatch" style="background-color: rgb({{color}})">{{color_hex}}</div>
+  {{/colors}}
+</script>
