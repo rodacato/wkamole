@@ -2,14 +2,20 @@ $:.unshift File.expand_path('lib', File.dirname(__FILE__))
 
 require 'sinatra/base'
 require 'sinatra/contrib'
+require 'sinatra/content_for'
 
 module WkaMole
   class Extractor < Sinatra::Base
-
+    helpers Sinatra::ContentFor
+    
     configure(:production, :development) do
-      enable :logging
-      enable :dump_errors
-      set :raise_errors, true
+      enable :logging, :dump_errors, :raise_errors
+    end
+
+    set :phantom_cmd, 'phantomjs'
+    
+    configure :production do
+      set :phantom_cmd, './vendor/phantomjs/bin/phantomjs'
     end
 
     error do
@@ -24,17 +30,22 @@ module WkaMole
     end
 
     get '/' do
-      "Waka waka, waa wa waaa!"
+      erb :home
+    end
+
+    post '/all' do
+      @res = `#{settings.phantom_cmd} lib/typography.js #{params[:site]}`
+      erb :all
     end
 
     get '/:site/colors' do
-   	  res = `phantomjs lib/color.js http://www.#{params[:site]}`
+   	  res = `#{settings.phantom_cmd} lib/color.js http://www.#{params[:site]}`
   	  res
     end
 
     get '/:site/typography' do
       content_type 'text/css', :charset => 'utf-8'
-      res = `./vendor/phantomjs/bin/phantomjs lib/typography.js http://www.#{params[:site]}`
+      res = `#{settings.phantom_cmd} lib/typography.js http://www.#{params[:site]}`
 
       "// For: #{params[:site]} \n\n #{res}"
     end

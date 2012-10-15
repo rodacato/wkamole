@@ -1,0 +1,2 @@
+// Get all the link elements
+$('link').map(function(i, ele){ console.log($(ele).attr('href')) } )
