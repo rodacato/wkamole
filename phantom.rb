@@ -6,6 +6,7 @@ require 'sinatra/contrib'
 require 'sinatra/content_for'
 require 'helpers/base'
 require 'helpers/colors'
+require 'json'
 
 module WkaMole
   class Extractor < Sinatra::Base
