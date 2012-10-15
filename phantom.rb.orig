@@ -1,8 +1,21 @@
 $:.unshift File.expand_path('lib', File.dirname(__FILE__))
 
+<<<<<<< HEAD
+get '/colors' do
+  x = `phantomjs lib/colors.js http://theindustry.cc`
+  x
+end
+
+get '/typography' do
+  x = `phantomjs lib/typography.js http://www.crowdvoice.org`
+
+  arr = eval(x)
+
+  arr.first
+=======
 require 'sinatra/base'
 require 'sinatra/contrib'
-require 'json'
+
 module WkaMole
   class Extractor < Sinatra::Base
 
@@ -27,11 +40,8 @@ module WkaMole
       raise "Sinatra has left the building"
     end
 
-    get '/:site/colors' do
-      @res = `phantomjs lib/colors.js http://www.#{params[:site]}`
-      @res = JSON.parse(@res)
-      erb :colors
-
+    get '/colors' do
+      `phantomjs lib/colors.js http://www.crowdvoice.org`
     end
 
     get '/:site/typography' do
@@ -41,4 +51,5 @@ module WkaMole
       "// For: #{params[:site]} \n\n #{res}"
     end
   end
+>>>>>>> 66c146d7b9a27ee5c6945c838ccf6978da337309
 end
