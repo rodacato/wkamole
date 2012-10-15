@@ -48,7 +48,7 @@ module WkaMole
     end
 
     get '/:site/colors' do
-      @res = `phantomjs lib/colors.js http://www.#{params[:site]}`
+      @res = `phantomjs lib/colors.js http://www.#{params[:site]} #{base_url}`
       @res = JSON.parse(@res)
       erb :colors
     end
