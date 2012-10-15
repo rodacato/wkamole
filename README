@@ -1,2 +1,5 @@
 // Get all the link elements
 $('link').map(function(i, ele){ console.log($(ele).attr('href')) } )
+
+//TODO
+* Check how get the fonts and compare them with google fotns

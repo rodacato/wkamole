@@ -13,7 +13,7 @@ module WkaMole
     end
 
     set :phantom_cmd, 'phantomjs'
-    
+
     configure :production do
       set :phantom_cmd, './vendor/phantomjs/bin/phantomjs'
     end
