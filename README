@@ -2,4 +2,10 @@
 $('link').map(function(i, ele){ console.log($(ele).attr('href')) } )
 
 //TODO
-* Check how get the fonts and compare them with google fotns
+* Check how get the fonts and compare them with google fonts
+
+
+
+
+
+

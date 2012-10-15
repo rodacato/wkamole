@@ -1,16 +1,19 @@
 $:.unshift File.expand_path('lib', File.dirname(__FILE__))
+#$LOAD_PATH << File.join(Dir.getwd, 'lib')
 
 require 'sinatra/base'
 require 'sinatra/contrib'
 require 'sinatra/content_for'
+require 'helpers/base'
+require 'helpers/colors'
 require 'json'
 
 module WkaMole
   class Extractor < Sinatra::Base
-    helpers Sinatra::ContentFor
-    
+    helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
+
     configure(:production, :development) do
-      enable :logging, :dump_errors, :raise_errors
+      enable :logging, :dump_errors, :raise_errors, :static
     end
 
     set :phantom_cmd, 'phantomjs'
@@ -35,7 +38,12 @@ module WkaMole
     end
 
     post '/all' do
-      @res = `#{settings.phantom_cmd} lib/typography.js #{params[:site]}`
+      # Getting typography styles
+      @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{base_url}`
+
+      # Getting site screenshot
+      @screenshot = screenshot(params[:site])
+
       erb :all
     end
 
@@ -45,11 +53,13 @@ module WkaMole
       erb :colors
     end
 
-    get '/:site/typography' do
-      content_type 'text/css', :charset => 'utf-8'
-      res = `#{settings.phantom_cmd} lib/typography.js http://www.#{params[:site]}`
+    get '/:site/colors-implicit' do
+      res = `#{settings.phantom_cmd} lib/color.js http://www.#{params[:site]}`
+      res
+    end
 
-      "// For: #{params[:site]} \n\n #{res}"
+    get '/:site/screenshot' do
+      screenshot(params[:site])
     end
   end
 end
