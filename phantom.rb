@@ -32,6 +32,7 @@ module WkaMole
 
     assets {
       js :inject, '/javascripts/inject.js', [ '/javascripts/includes/jquery.min.js', '/javascripts/includes/jquery.base.extend.js', '/javascripts/includes/jquery.curstyles.js' ]
+      js :screenshot, '/javscripts/screenshot.js', ['/javascripts/includes/jquery.min.js', '/javascripts/includes/quantize.js', '/javascripts/includes/color-thief.js']
     }
 
     error do
@@ -50,6 +51,7 @@ module WkaMole
     end
 
     get '/' do
+      debugger
       erb :home
     end
 

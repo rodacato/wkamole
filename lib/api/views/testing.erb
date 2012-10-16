@@ -1,0 +1,24 @@
+<script src="/javascripts/includes/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/includes/quantize.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/includes/color-thief.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+  $(document).ready(function () {
+      $('.targetImage').bind('load', function (event) {
+          var image = event.target,
+              colors = {};
+
+          // Dominant Color
+          var dominantColor = getDominantColor(image);
+          colors['dominant'] = dominantColor;
+
+          // Palette
+          var medianPalette = createPalette(image, 16);
+          colors['palette'] = medianPalette;
+
+          $('.colors').html(JSON.stringify(colors));
+      });
+  });
+</script>
+
+<img class="targetImage" style="display:none" src="<%= @url %>" /><div class='colors'></div>

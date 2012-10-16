@@ -9,7 +9,7 @@ module Api
 
     register Version1::Colors
 
-    helpers Helpers::Base, Helpers::Colors
+    helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
 
     configure(:production, :development) do
       enable :logging, :dump_errors, :static, :show_exceptions
