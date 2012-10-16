@@ -37,8 +37,11 @@
   </script
 <% end %>
 
-<div>
-  <a target="_blank" href="<%= params[:site] %>"><h1 class="site-title">&nbsp;&nbsp;<%= params[:site] %></h1></a>
+<div class="site-title">
+  <form action="/all" method="post" accept-charset="utf-8">
+    <input type="text" name="site" style="width:400px;" placeholder="Paste an URL..." value="<%= params[:site] %>">
+    <input type="submit" value="..extract another page!">
+  </form>
 </div>
 
 <div class="section-container typography">
