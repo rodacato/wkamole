@@ -5,7 +5,7 @@
 
       $.get('/typography?site=' + site, function(data) {
         $('.section-container.typography').html(data);
-      }).error(function() { $('.section-container.colors').html("<p class='error'>We couldn't get the typography styles</p>"); });
+      }).error(function() { $('.section-container.typography').html("<p class='error'>We couldn't get the typography styles</p>"); });
 
       $.get('/colors?site=' + site, function(data) {
         $('.section-container.colors').html(data);
@@ -31,7 +31,7 @@
             var medianPalette = createPalette(image, 16);
             var medianCutPalette = $('.colorsWrap .palette');
             appendColors(medianPalette, medianCutPalette);
-        }).error(function() { $('.section-container.colors').html("<p class='error'>We couldn't get the explicit colors</p>"); });
+        }).error(function() { $('.section-container.colors-implicit').html("<p class='error'>We couldn't get the explicit colors</p>"); });
       });
     });
   </script
