@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
-  $('.toggle-view').click(function() {
-    if ( $('.typography').is(':visible') ) {
-      $('.typography').hide();
-      $('.code-block').show();
+  $('.toggle-view').live('click', function() {
+    if ( $('.inner-example-block').is(':visible') ) {
+      $('.inner-example-block').hide();
+      $('.inner-code-block').show();
       $(this).text('View example')
 
     } else {
-      $('.typography').show();
-      $('.code-block').hide();
+      $('.inner-example-block').show();
+      $('.inner-code-block').hide();
       $(this).text('View raw code')
 
     }
