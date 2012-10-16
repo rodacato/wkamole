@@ -1,12 +1,16 @@
 $:.unshift File.expand_path('lib', File.dirname(__FILE__))
 #$LOAD_PATH << File.join(Dir.getwd, 'lib')
 
+require 'sinatra/assetpack'
 require 'sinatra/base'
+require 'sinatra/config_file'
 require 'sinatra/contrib'
 require 'sinatra/content_for'
-require 'sinatra/assetpack'
 require 'helpers/base'
 require 'helpers/colors'
+
+require 'api/v1'
+
 require 'json'
 
 module WkaMole
@@ -14,16 +18,17 @@ module WkaMole
     helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
 
     register Sinatra::AssetPack
+    register Sinatra::ConfigFile
+
+    use Api::V1
+
+    set :version, 'v1'
 
     configure(:production, :development) do
       enable :logging, :dump_errors, :raise_errors, :static
     end
 
-    set :phantom_cmd, 'phantomjs'
-
-    configure :production do
-      set :phantom_cmd, './vendor/phantomjs/bin/phantomjs'
-    end
+    config_file 'config/config.yml'
 
     assets {
       js :inject, '/javascripts/inject.js', [ '/javascripts/includes/jquery.min.js', '/javascripts/includes/jquery.base.extend.js', '/javascripts/includes/jquery.curstyles.js' ]
@@ -40,6 +45,10 @@ module WkaMole
       logger.info params
     end
 
+    get '/ping.json' do
+      {:status => :ok}.to_json
+    end
+
     get '/' do
       erb :home
     end
@@ -49,20 +58,11 @@ module WkaMole
     end
 
     post '/all' do
-      # Getting typography styles
-      @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
-
-      # Getting site screenshot
-      # @screenshot = screenshot(params[:site])
-
-      # Getting text colors
-      # @colors = eval(`phantomjs lib/colors.js #{params[:site]} #{inject_assets}`)
-
       erb :all
     end
 
     get '/colors' do
-      @res = `#{settings.phantom_cmd} lib/colors.js #{params[:site]} #{inject_assets}`
+      @res = `#{settings.phantom_cmd} lib/phantom/version1/colors.js #{params[:site]} #{inject_assets}`
       @domaint_colors = @rest_colors = []
       colors = eval(@res)
       if colors
@@ -73,7 +73,7 @@ module WkaMole
     end
 
     get '/typography' do
-      @res = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
+      @res = `#{settings.phantom_cmd} lib/phantom/version1/typography.js #{params[:site]} #{inject_assets}`
       erb :typography, :layout => false
     end
 

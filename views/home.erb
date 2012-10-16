@@ -1,7 +1,15 @@
-<h1>Wka Mole</h1>
-<p>Test page for extract webpage components</p>
+<div class="site-title">
+  <form action="/all" method="post" accept-charset="utf-8">
+    <input type="text" name="site" style="width:400px;" placeholder="Paste an URL..." value="<%= params[:site] %>">
+    <input type="submit" value="..extract page components!">
+  </form>
+</div>
 
-<form action="/all" method="post" accept-charset="utf-8">
-  <input type="text" name="site" style="width:400px;" placeholder="Paste an URL...">
-  <input type="submit" value="..and extract their components!">
-</form>
+<div class="section-container typography">
+</div>
+
+<div class="section-container colors">
+</div>
+
+<div class="section-container colors-implicit">
+</div>
