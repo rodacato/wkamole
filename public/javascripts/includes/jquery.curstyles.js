@@ -39,7 +39,7 @@
 
 		for (; i < styles.length; i++ ) {
 			name = styles[i];
-			oldName = name.replace(rdashAlpha, fcamelCase);
+			oldName = name;//.replace(rdashAlpha, fcamelCase);
 
 			if ( rfloat.test(name) ) {
 				name = jQuery.support.cssFloat ? "float" : "styleFloat";
@@ -54,7 +54,7 @@
 				}
 				results[oldName] = val;
 			} else {
-				camelCase = name.replace(rdashAlpha, fcamelCase);
+				camelCase = name;//.replace(rdashAlpha, fcamelCase);
 				results[oldName] = currentS[name] || currentS[camelCase];
 
 

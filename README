@@ -4,7 +4,7 @@ $('link').map(function(i, ele){ console.log($(ele).attr('href')) } )
 //TODO
 * Check how get the fonts and compare them with google fonts
 * Create own scope for dont break other webpages
-
+* Check API Auth logic
 
 
 

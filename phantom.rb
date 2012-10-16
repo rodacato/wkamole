@@ -50,7 +50,7 @@ module WkaMole
 
     post '/all' do
       # Getting typography styles
-      # @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
+      @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
 
       # Getting site screenshot
       # @screenshot = screenshot(params[:site])
