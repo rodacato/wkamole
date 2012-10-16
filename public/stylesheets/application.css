@@ -45,6 +45,21 @@ text-align: center;
   border-radius: 4px 0 4px 0;
 }
 
+.inner-code-block {
+  display: none;
+}
+
+p.toggle-view {
+  font-family: Arial;
+  text-decoration: underline;
+  color: #069;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-style: normal;
+  cursor: pointer;
+}
+
 .typography::after {
   content: "Typography";
 }
