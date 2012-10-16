@@ -1,0 +1,4 @@
+development:
+  phantom_cmd: 'phantomjs'
+production:
+  phantom_cmd: './vendor/phantomjs/bin/phantomjs'

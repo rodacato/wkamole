@@ -1,5 +1,4 @@
 module PathNamespace
-
   def self.extended(base)
     base.path_namespace ''
   end
@@ -19,5 +18,4 @@ module PathNamespace
   def with_namespace(path)
     "#{@@path_namespace}#{path.gsub(/^\//, '')}"
   end
-
 end

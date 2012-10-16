@@ -1,18 +1,19 @@
-class V1 < Sinatra::Base
-  extend PathNamespace
-  path_namespace 'v1'
+require 'api/path_namespace'
+require 'api/version1/colors'
+require 'helpers/base'
 
-  register Version1::Stations
+module Api
+  class V1 < Sinatra::Base
+    extend PathNamespace
+    path_namespace 'api/v1'
 
-  set :raise_errors, Proc.new { false }
-  set :show_exceptions, false
+    register Version1::Colors
 
-  error ActiveRecord::RecordNotFound do
-    halt 404, { :error => 'Record Not Found'}.to_json
+    helpers Helpers::Base, Helpers::Colors
+
+    configure(:production, :development) do
+      enable :logging, :dump_errors, :static, :show_exceptions
+      disable :raise_errors
+    end
   end
-
-  error ActiveRecord::RecordInvalid do
-    halt 422, { :errors => @resource.errors }.to_json
-  end
-
 end

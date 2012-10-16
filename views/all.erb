@@ -3,10 +3,10 @@
     $(document).ready(function () {
       var site = encodeURIComponent('<%= params[:site] %>');
 
-      <%# $.get('/typography?site=' + site, function(data) { %>
-      <%#   $('.section-container.typography').html(data); %>
-      <%#   $($(data)[0]).find('style').appendTo("head"); %>
-      <%# }).error(function() { $('.section-container.typography').html("<p class='error'>We couldn't get the typography styles</p>"); }); %>
+      $.get('/typography?site=' + site, function(data) {
+        $('.section-container.typography').html(data);
+        $($(data)[0]).find('style').appendTo("head");
+      }).error(function() { $('.section-container.typography').html("<p class='error'>We couldn't get the typography styles</p>"); });
 
       $.get('/colors?site=' + site, function(data) {
         $('.section-container.colors').html(data);
@@ -25,21 +25,15 @@
 
             // Dominant Color
             var dominantColor = getDominantColor(image);
-            var dominantSwatch = $('.colorsWrap .dominant');
-            appendColors([dominantColor], dominantSwatch);
+            appendColors([dominantColor], $('.colorsWrap .dominant'));
 
             // Palette
             var medianPalette = createPalette(image, 16);
-            var medianCutPalette = $('.colorsWrap .palette');
-            appendColors(medianPalette, medianCutPalette);
-        }).error(function() { $('.section-container.colors-implicit').html("<p class='error'>We couldn't get the explicit colors</p>"); });
-      });
+            appendColors(medianPalette, $('.colorsWrap .palette'));
+        });
+      }).error(function() { $('.section-container.colors-implicit').html("<p class='error'>We couldn't get the explicit colors</p>"); });
     });
   </script>
-
-  <style type="text/css">
-    <%= @typos %>
-  </style>
 <% end %>
 
 <div class="site-title">
@@ -50,20 +44,7 @@
 </div>
 
 <div class="section-container typography">
-  <h1>h1. Heading 1</h1>
-  <h2>h2. Heading 2</h2>
-  <h3>h3. Heading 3</h3>
-  <h4>h4. Heading 4</h4>
-  <h5>h5. Heading 5</h5>
-  <h6>h6. Heading 6</h6>
-  <p>span. <span>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</span></p>
-  <p>p. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
-  <p>small. <small>eget risus varius blandit sit amet non magna</small></p>
-  <p>strong. <strong>blandit sit amet non magna</strong></p>
-  <p>em. <em>Cum sociis natoque penatibus et magnis dis parturient montes</em></p>
-  <p>abbr. <abbr>penatibus</abbr></p>
-  <blockquote>blockquote. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</blockquote>
-  <a href="#"> a. Nisi erat porttitor ligula, eget</a>
+  <img class="loader" src="/images/loader.gif" />
 </div>
 
 <div class="section-container colors">
