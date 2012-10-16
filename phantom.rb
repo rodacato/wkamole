@@ -62,7 +62,7 @@ module WkaMole
     end
 
     get '/colors' do
-      @res = `phantomjs lib/colors.js #{params[:site]} #{inject_assets}`
+      @res = `#{settings.phantom_cmd} lib/colors.js #{params[:site]} #{inject_assets}`
       colors = eval(@res)
       @domaint_colors = [colors.group_by.sort_by{|ele| ele.length}.uniq.reverse.slice(0)]
       @rest_colors = colors.group_by.sort_by{|ele| ele.length}.uniq.reverse - @domaint_colors
@@ -70,7 +70,7 @@ module WkaMole
     end
 
     get '/typography' do
-      @res = `phantomjs lib/typography.js #{params[:site]} #{inject_assets}`
+      @res = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
       erb :typography, :layout => false
     end
 
