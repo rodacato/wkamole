@@ -26,7 +26,7 @@ module WkaMole
     end
 
     assets {
-      js :inject, '/javascripts/inject.js', [ '/javascripts/includes/jquery.min.js', '/javascripts/includes/jquery.base.extend.js' ]
+      js :inject, '/javascripts/inject.js', [ '/javascripts/includes/jquery.min.js', '/javascripts/includes/jquery.base.extend.js', '/javascripts/includes/jquery.curstyles.js' ]
     }
 
     error do
@@ -63,9 +63,12 @@ module WkaMole
 
     get '/colors' do
       @res = `#{settings.phantom_cmd} lib/colors.js #{params[:site]} #{inject_assets}`
+      @domaint_colors = @rest_colors = []
       colors = eval(@res)
-      @domaint_colors = [colors.group_by.sort_by{|ele| ele.length}.uniq.reverse.slice(0)]
-      @rest_colors = colors.group_by.sort_by{|ele| ele.length}.uniq.reverse - @domaint_colors
+      if colors
+        @domaint_colors = [colors.group_by.sort_by{|ele| ele.length}.uniq.reverse.slice(0)]
+        @rest_colors = colors.group_by.sort_by{|ele| ele.length}.uniq.reverse - @domaint_colors
+      end
       erb :colors, :layout => false
     end
 

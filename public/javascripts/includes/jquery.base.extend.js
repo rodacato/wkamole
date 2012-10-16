@@ -22,40 +22,4 @@
 		    }
 	});
 
-    $.fn.getCSS = function(attr){
-        var dom = this.get(0);
-        var style;
-        var returns = {};
-
-        if (dom == undefined){
-            return undefined;
-        }
-
-        if(window.getComputedStyle){
-            var camelize = function(a,b){
-                return b.toUpperCase();
-            }
-
-            style = window.getComputedStyle(dom, null);
-
-            // TODO: Remove uneeded attributes or just get the one we want a.k.a style[attr]
-            for(var i=0;i<style.length;i++){
-                var prop = style[i];
-                var camel = prop.replace(/\-([a-z])/g, camelize);
-                var val = style.getPropertyValue(prop);
-                returns[camel] = val;
-            }
-            return returns[attr];
-        }
-
-        if(dom.currentStyle){
-            style = dom.currentStyle;
-            for(var prop in style){
-                returns[prop] = style[prop];
-            }
-            return returns[attr];
-        }
-        return this.css('attr');
-    };
-
 })(jQuery);
