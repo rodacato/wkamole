@@ -4,6 +4,10 @@ module Helpers
       @base ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
     end
 
+    def inject_assets
+      url('javascripts/inject.js')
+    end
+
     def url(path='')
       [base_url, path].join('/')
     end

@@ -4,6 +4,7 @@ $:.unshift File.expand_path('lib', File.dirname(__FILE__))
 require 'sinatra/base'
 require 'sinatra/contrib'
 require 'sinatra/content_for'
+require 'sinatra/assetpack'
 require 'helpers/base'
 require 'helpers/colors'
 require 'json'
@@ -11,6 +12,8 @@ require 'json'
 module WkaMole
   class Extractor < Sinatra::Base
     helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
+
+    register Sinatra::AssetPack
 
     configure(:production, :development) do
       enable :logging, :dump_errors, :raise_errors, :static
@@ -21,6 +24,10 @@ module WkaMole
     configure :production do
       set :phantom_cmd, './vendor/phantomjs/bin/phantomjs'
     end
+
+    assets {
+      js :inject, '/javascripts/inject.js', [ '/javascripts/includes/jquery.min.js', '/javascripts/includes/jquery.base.extend.js' ]
+    }
 
     error do
       e = request.env['sinatra.error']
@@ -37,25 +44,28 @@ module WkaMole
       erb :home
     end
 
+    get 'all' do
+      redirect '/'
+    end
+
     post '/all' do
       # Getting typography styles
-      @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{base_url}`
+      @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
 
       # Getting site screenshot
       @screenshot = screenshot(params[:site])
+
+      # Getting text colors
+      @colors = eval(`phantomjs lib/colors.js #{params[:site]} #{inject_assets}`)
 
       erb :all
     end
 
     get '/:site/colors' do
-      @res = `phantomjs lib/colors.js http://www.#{params[:site]} #{base_url}`
+      debugger
+      @res = `phantomjs lib/colors.js http://www.#{params[:site]} #{inject_assets}`
       @res = JSON.parse(@res)
       erb :colors
-    end
-
-    get '/:site/colors' do
-      res = `#{settings.phantom_cmd} lib/color.js http://www.#{params[:site]}`
-      res
     end
 
     get '/:site/screenshot' do

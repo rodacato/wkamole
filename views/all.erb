@@ -40,15 +40,9 @@
   <div style="clear:both"></div>
   <div>
     <h3>Palette</h3>
-    <div class="swatch" style="background-color: rgb(53, 33, 23); "></div>
-    <div class="swatch" style="background-color: rgb(217, 190, 141); "></div>
-    <div class="swatch" style="background-color: rgb(101, 204, 225); "></div>
-    <div class="swatch" style="background-color: rgb(159, 172, 113); "></div>
-    <div class="swatch" style="background-color: rgb(136, 120, 42); "></div>
-    <div class="swatch" style="background-color: rgb(125, 114, 101); "></div>
-    <div class="swatch" style="background-color: rgb(34, 127, 141); "></div>
-    <div class="swatch" style="background-color: rgb(175, 185, 178); "></div>
-    <div class="swatch" style="background-color: rgb(211, 85, 6); "></div>
+    <% @colors.each do |color| %>
+      <div class="swatch" style="background-color: rgb(<%= color %>); "></div>
+    <% end %>
   </div>
   <div style="clear:both"></div>
 </div>
