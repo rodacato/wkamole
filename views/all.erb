@@ -1,72 +1,54 @@
 <% content_for :head do %>
-  <script src="/javascripts/includes/mustache.js" type="text/javascript" charset="utf-8"></script>
-  <script src="/javascripts/includes/quantize.js" type="text/javascript" charset="utf-8"></script>
-  <script src="/javascripts/includes/color-thief.js" type="text/javascript" charset="utf-8"></script>
-  <script src="/javascripts/implicit-colors.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+    $(document).ready(function () {
+      var site = encodeURIComponent('<%= params[:site] %>');
 
-  <style>
-    <%= @typos %>
-  </style>
+      $.get('/typography?site=' + site, function(data) {
+        $('.section-container.typography').html(data);
+      }).error(function() { $('.section-container.colors').html("<p class='error'>We couldn't get the typography styles</p>"); });
+
+      $.get('/colors?site=' + site, function(data) {
+        $('.section-container.colors').html(data);
+      }).error(function() { $('.section-container.colors').html("<p class='error'>We couldn't get the implicit colors</p>"); });
+
+      $.get('/screenshot?site=' + site, function(data) {
+        $('.section-container.colors-implicit').html(data);
+
+        $('.targetImage').bind('load', function (event) {
+            var image = event.target;
+            var appendColors = function (colors, root) {
+                var palette = { colors : colors.map(function(val, i){ return {color : val.toString(), color_hex : '' } }) };
+                var html = Mustache.to_html($('#color-template').html(), palette);
+                root.append(html);
+            };
+
+            // Dominant Color
+            var dominantColor = getDominantColor(image);
+            var dominantSwatch = $('.colorsWrap .dominant');
+            appendColors([dominantColor], dominantSwatch);
+
+            // Palette
+            var medianPalette = createPalette(image, 16);
+            var medianCutPalette = $('.colorsWrap .palette');
+            appendColors(medianPalette, medianCutPalette);
+        }).error(function() { $('.section-container.colors').html("<p class='error'>We couldn't get the explicit colors</p>"); });
+      });
+    });
+  </script
 <% end %>
 
 <div>
   <a target="_blank" href="<%= params[:site] %>"><h1 class="site-title">&nbsp;&nbsp;<%= params[:site] %></h1></a>
 </div>
 
-
 <div class="section-container typography">
-  <h1>h1. Heading 1</h1>
-  <h2>h2. Heading 2</h2>
-  <h3>h3. Heading 3</h3>
-  <h4>h4. Heading 4</h4>
-  <h5>h5. Heading 5</h5>
-  <h6>h6. Heading 6</h6>
-  <p>span. <span>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur</span></p>
-  <p>p. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
-  <p>small. <small>eget risus varius blandit sit amet non magna</small></p>
-  <p>strong. <strong>blandit sit amet non magna</strong></p>
-  <p>em. <em>Cum sociis natoque penatibus et magnis dis parturient montes</em></p>
-  <p>abbr. <abbr>penatibus</abbr></p>
-  <blockquote>blockquote. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</blockquote>
+  <img class="loader" src="/images/loader.gif" />
 </div>
-
-
 
 <div class="section-container colors">
-  <div>
-    <h3>Dominant Color</h3>
-    <div class="swatch" style="background-color: rgb(127, 184, 179); "></div>
-  </div>
-  <div style="clear:both"></div>
-  <div>
-    <h3>Palette</h3>
-    <% @colors.each do |color| %>
-      <div class="swatch" style="background-color: rgb(<%= color %>); "></div>
-    <% end %>
-  </div>
-  <div style="clear:both"></div>
+  <img class="loader" src="/images/loader.gif" />
 </div>
-
-
 
 <div class="section-container colors-implicit">
-  <div class="imageWrap">
-    <img class="targetImage" src="<%= @screenshot%>" data-colorcount="">
-  </div>
-  <div class="colorsWrap">
-    <div class="dominant">
-      <h3>Dominant Color</h3>
-    </div>
-    <div class="palette">
-      <h3>Palette</h3>
-    </div>
-  </div>
+  <img class="loader" src="/images/loader.gif" />
 </div>
-
-
-
-<script id="color-template" type="text/x-mustache">
-  {{#colors}}
-    <div class="swatch" style="background-color: rgb({{color}})">{{color_hex}}</div>
-  {{/colors}}
-</script>

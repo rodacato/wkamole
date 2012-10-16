@@ -1,0 +1,17 @@
+<div class="imageWrap">
+  <img class="targetImage" src="<%= @url %>" />
+</div>
+<div class="colorsWrap">
+  <div class="dominant">
+    <h3>Dominant Color</h3>
+  </div>
+  <div class="palette">
+    <h3>Palette</h3>
+  </div>
+</div>
+
+<script id="color-template" type="text/x-mustache">
+  {{#colors}}
+    <div class="swatch" style="background-color: rgb({{color}})">{{color_hex}}</div>
+  {{/colors}}
+</script>

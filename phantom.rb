@@ -50,26 +50,33 @@ module WkaMole
 
     post '/all' do
       # Getting typography styles
-      @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
+      # @typos = `#{settings.phantom_cmd} lib/typography.js #{params[:site]} #{inject_assets}`
 
       # Getting site screenshot
-      @screenshot = screenshot(params[:site])
+      # @screenshot = screenshot(params[:site])
 
       # Getting text colors
-      @colors = eval(`phantomjs lib/colors.js #{params[:site]} #{inject_assets}`)
+      # @colors = eval(`phantomjs lib/colors.js #{params[:site]} #{inject_assets}`)
 
       erb :all
     end
 
-    get '/:site/colors' do
-      debugger
-      @res = `phantomjs lib/colors.js http://www.#{params[:site]} #{inject_assets}`
-      @res = JSON.parse(@res)
-      erb :colors
+    get '/colors' do
+      @res = `phantomjs lib/colors.js #{params[:site]} #{inject_assets}`
+      colors = eval(@res)
+      @domaint_colors = [colors.group_by.sort_by{|ele| ele.length}.uniq.reverse.slice(0)]
+      @rest_colors = colors.group_by.sort_by{|ele| ele.length}.uniq.reverse - @domaint_colors
+      erb :colors, :layout => false
     end
 
-    get '/:site/screenshot' do
-      screenshot(params[:site])
+    get '/typography' do
+      @res = `phantomjs lib/typography.js #{params[:site]} #{inject_assets}`
+      erb :typography, :layout => false
+    end
+
+    get '/screenshot' do
+      @url = screenshot(params[:site])
+      erb :screenshot, :layout => false
     end
   end
 end
