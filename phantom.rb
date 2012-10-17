@@ -10,16 +10,15 @@ require 'json'
 module WkaMole
   class Extractor < AppBase
     register Sinatra::AssetPack
-    
+
     use Api::V1
-    
+
     set :version, 'v1'
     set :root, File.dirname(__FILE__)
     set :views, Proc.new { File.join(settings.root, "views") }
-    
+
     assets {
       js :inject, '/javascripts/inject.js', [ '/javascripts/includes/jquery.min.js', '/javascripts/includes/jquery.base.extend.js', '/javascripts/includes/jquery.curstyles.js' ]
-      js :screenshot, '/javscripts/screenshot.js', ['/javascripts/includes/jquery.min.js', '/javascripts/includes/quantize.js', '/javascripts/includes/color-thief.js']
     }
 
     get '/' do
@@ -52,6 +51,9 @@ module WkaMole
 
     get '/screenshot' do
       @url = screenshot(params[:site])
+      img = ImageList.new(@url)
+      @colors = img.color_histogram.map{|pixel| pixel.first.to_color(AllCompliance, false, 8, true) }
+
       erb :screenshot, :layout => false
     end
   end

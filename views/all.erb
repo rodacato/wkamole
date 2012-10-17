@@ -14,23 +14,6 @@
 
       $.get('/screenshot?site=' + site, function(data) {
         $('.section-container.colors-implicit').html(data);
-
-        $('.targetImage').bind('load', function (event) {
-            var image = event.target;
-            var appendColors = function (colors, root) {
-                var palette = { colors : colors.map(function(val, i){ return {color : val.toString(), color_hex : '' } }) };
-                var html = Mustache.to_html($('#color-template').html(), palette);
-                root.append(html);
-            };
-
-            // Dominant Color
-            var dominantColor = getDominantColor(image);
-            appendColors([dominantColor], $('.colorsWrap .dominant'));
-
-            // Palette
-            var medianPalette = createPalette(image, 16);
-            appendColors(medianPalette, $('.colorsWrap .palette'));
-        });
       }).error(function() { $('.section-container.colors-implicit').html("<p class='error'>We couldn't get the explicit colors</p>"); });
     });
   </script>

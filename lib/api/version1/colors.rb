@@ -1,8 +1,5 @@
-require 'RMagick'
-
 module Version1
   module Colors
-    include Magick
 
     def self.registered(app)
       app.get '/colors.json' do

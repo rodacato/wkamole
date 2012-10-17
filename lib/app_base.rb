@@ -5,8 +5,12 @@ require 'sinatra/content_for'
 require 'helpers/base'
 require 'helpers/colors'
 
-class AppBase < Sinatra::Base 
+require 'RMagick'
+
+class AppBase < Sinatra::Base
   register Sinatra::ConfigFile
+
+  include Magick
 
   helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
 
