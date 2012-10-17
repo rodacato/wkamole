@@ -8,13 +8,27 @@
         $($(data)[0]).find('style').appendTo("head");
       }).error(function() { $('.section-container.typography').html("<p class='error'>We couldn't get the typography styles</p>"); });
 
-      $.get('/colors?site=' + site, function(data) {
-        $('.section-container.colors').html(data);
-      }).error(function() { $('.section-container.colors').html("<p class='error'>We couldn't get the implicit colors</p>"); });
+      $.ajax({
+          url: '/colors?site=' + site,
+          success: function(data) { $('.section-container.colors').html(data); },
+          error: function(){ $('.section-container.colors').html("<p class='error'>We couldn't get the implicit colors</p>"); },
+          async:false
+      });
 
-      $.get('/screenshot?site=' + site, function(data) {
-        $('.section-container.colors-implicit').html(data);
-      }).error(function() { $('.section-container.colors-implicit').html("<p class='error'>We couldn't get the explicit colors</p>"); });
+      $.ajax({
+          url: '/screenshot?site=' + site,
+          success: function(data) { $('.section-container.colors-implicit').html(data); },
+          error: function(){ $('.section-container.colors-implicit').html("<p class='error'>We couldn't get the explicit colors</p>"); },
+          async:false
+      });
+
+      <%# $.get('/colors?site=' + site, function(data) { %>
+      <%#   $('.section-container.colors').html(data); %>
+      <%# }).error(function() { $('.section-container.colors').html("<p class='error'>We couldn't get the implicit colors</p>"); }); %>
+
+      <%# $.get('/screenshot?site=' + site, function(data) { %>
+      <%#   $('.section-container.colors-implicit').html(data); %>
+      <%# }).error(function() { $('.section-container.colors-implicit').html("<p class='error'>We couldn't get the explicit colors</p>"); }); %>
     });
   </script>
 <% end %>
