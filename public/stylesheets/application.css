@@ -68,7 +68,7 @@ p.toggle-view {
   content: "Typography";
 }
 
-.colors::after {
+.colors-explicit::after {
   content: "Explicit Colors";
 }
 

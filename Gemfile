@@ -8,6 +8,7 @@ gem 'foreman'
 gem 'unicorn'
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem "rmagick", "2.12.0", :require => 'RMagick'
+gem 'color'
 
 group :development do
   gem 'shotgun'
