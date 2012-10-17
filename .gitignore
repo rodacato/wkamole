@@ -3,3 +3,4 @@
 .rvmrc
 *.orig
 public/images/screenshots/*.jpg
+public/images/screenshots/*.png
