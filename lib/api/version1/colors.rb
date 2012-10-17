@@ -9,8 +9,8 @@ module Version1
         colors1 = build_colors(explicit)
 
         url = screenshot(params[:site])
-        img = ImageList.new(url)
-        colors2 = img.color_histogram.map{|pixel| pixel.first.to_color(AllCompliance, false, 8, true) }
+        img = Magick::ImageList.new(url)
+        colors2 = img.color_histogram.map{|pixel| pixel.first.to_color(Magick::AllCompliance, false, 8, true) }
 
         {explicit: colors1, implicit: colors2}.to_json
       end
@@ -27,7 +27,7 @@ module Version1
         halt 401, { :error => "Missing parameter 'site'" }.to_json unless params[:site]
         url = screenshot(params[:site])
 
-        img = ImageList.new(url)
+        img = Magick::ImageList.new(url)
         colors = img.color_histogram.map{|pixel| pixel.first.to_color(AllCompliance, false, 8, true) }
         {implicit: colors}.to_json
       end

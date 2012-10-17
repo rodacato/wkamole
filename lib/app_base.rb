@@ -10,8 +10,6 @@ require 'RMagick'
 class AppBase < Sinatra::Base
   register Sinatra::ConfigFile
 
-  include Magick
-
   helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
 
   configure(:production, :development) do

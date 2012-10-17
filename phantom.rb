@@ -51,8 +51,8 @@ module WkaMole
 
     get '/screenshot' do
       @url = screenshot(params[:site])
-      img = ImageList.new(@url)
-      @colors = img.color_histogram.map{|pixel| pixel.first.to_color(AllCompliance, false, 8, true) }
+      img = Magick::ImageList.new(@url)
+      @colors = img.color_histogram.map{|pixel| pixel.first.to_color(Magick::AllCompliance, false, 8, true) }
 
       erb :screenshot, :layout => false
     end
