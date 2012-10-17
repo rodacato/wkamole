@@ -1,19 +1,17 @@
+require 'app_base'
+
 require 'api/path_namespace'
 require 'api/version1/colors'
 require 'helpers/base'
 
 module Api
-  class V1 < Sinatra::Base
+  class V1 < AppBase
     extend PathNamespace
     path_namespace 'api/v1'
 
+    set :root, File.dirname(__FILE__)
+    set :views, Proc.new { File.join(settings.root, "views") }
+
     register Version1::Colors
-
-    helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
-
-    configure(:production, :development) do
-      enable :logging, :dump_errors, :static, :show_exceptions
-      disable :raise_errors
-    end
   end
 end

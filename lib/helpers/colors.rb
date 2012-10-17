@@ -2,7 +2,7 @@ module Helpers
   module Colors
     def screenshot(site)
       image_name = rand(36**10).to_s(36)
-      `#{WkaMole::Extractor.settings.phantom_cmd} #{WkaMole::Extractor.settings.root}/lib/phantom/version1/screenshot.js #{params[:site]} #{WkaMole::Extractor.settings.root}/public/images/screenshots/#{image_name}.jpg`
+      `#{WkaMole::Extractor.settings.phantom_cmd} #{WkaMole::Extractor.settings.root}/lib/phantom_lib/base/screenshot.js #{params[:site]} #{WkaMole::Extractor.settings.root}/public/images/screenshots/#{image_name}.jpg`
       url("images/screenshots/#{image_name}.jpg")
     end
 
