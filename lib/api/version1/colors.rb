@@ -10,7 +10,7 @@ module Version1
 
         url = screenshot(params[:site])
         img = Magick::ImageList.new(url)
-        colors2 = img.color_histogram.map{|pixel| pixel.first.to_color(Magick::AllCompliance, false, 8, true) }
+        colors2 = img.color_histogram.sort{|a,b| b[1] <=> a[1] }.map{|pixel| pixel.first.to_color(Magick::AllCompliance, false, 8, true) }
 
         {explicit: colors1, implicit: colors2, :image_url=> url}.to_json
       end
