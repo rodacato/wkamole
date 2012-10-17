@@ -6,10 +6,14 @@ module Helpers
       url("images/screenshots/#{image_name}")
     end
 
-    def build_colors(val)
-      colors = eval(val)
-      weighted = colors.group_by.map{|e| [e, e.length]}.uniq.sort{|a,b| b[1] <=> a[1]}
-      weigthed = weighted.map{|e| /(\d{1,}, ?\d{1,}, ?\d{1,})/.match(e[0]); $1; }
+    def build_explicit_colors(val)
+      colors = JSON.parse(val)
+
+      colors['colors'] = colors['colors'].compact.group_by.map{|e| [e, e.length]}.uniq.sort{|a,b| b[1] <=> a[1]}.map{|e| e[0]}
+      colors['background-colors'] = colors['background-colors'].compact.group_by.map{|e| [e, e.length]}.uniq.sort{|a,b| b[1] <=> a[1]}.map{|e| e[0]}
+      colors['borders'] = colors['borders'].compact.group_by.map{|e| [e, e.length]}.uniq.sort{|a,b| b[1] <=> a[1]}.map{|e| e[0]}
+
+      colors
     end
   end
 end

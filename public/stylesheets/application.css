@@ -4,8 +4,12 @@
 }
 
 .error {
-  color: red; 
+  color: red;
   text-align: center;
+}
+
+.palette {
+  overflow: hidden;
 }
 
 .site-title {

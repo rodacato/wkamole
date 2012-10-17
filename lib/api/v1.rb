@@ -13,5 +13,9 @@ module Api
     set :views, Proc.new { File.join(settings.root, "views") }
 
     register Version1::Colors
+
+    before do
+      headers "Access-Control-Allow-Origin" => "*"
+    end
   end
 end

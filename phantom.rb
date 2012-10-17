@@ -30,31 +30,8 @@ module WkaMole
     end
 
     post '/all' do
-      erb :all
-    end
-
-    get '/colors' do
-      @res = `#{settings.phantom_cmd} lib/phantom_lib/base/colors.js #{params[:site]} #{inject_assets}`
-      @domaint_colors = @rest_colors = []
-      colors = eval(@res)
-      if colors
-        @domaint_colors = [colors.group_by.sort_by{|ele| ele.length}.uniq.reverse.slice(0)]
-        @rest_colors = colors.group_by.sort_by{|ele| ele.length}.uniq.reverse - @domaint_colors
-      end
-      erb :colors, :layout => false
-    end
-
-    get '/typography' do
       @res = `#{settings.phantom_cmd} lib/phantom_lib/base/typography.js #{params[:site]} #{inject_assets}`
-      erb :typography, :layout => false
-    end
-
-    get '/screenshot' do
-      @url = screenshot(params[:site])
-      img = Magick::ImageList.new(@url)
-      @colors = img.color_histogram.map{|pixel| pixel.first.to_color(Magick::AllCompliance, false, 8, true) }
-
-      erb :screenshot, :layout => false
+      erb :all
     end
   end
 end
