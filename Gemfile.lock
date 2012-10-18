@@ -16,6 +16,7 @@ GEM
       thor (>= 0.13.6)
     jsmin (1.0.1)
     kgio (2.7.4)
+    newrelic_rpm (3.5.0)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -55,6 +56,7 @@ DEPENDENCIES
   color
   debugger
   foreman
+  newrelic_rpm
   rmagick (= 2.12.0)
   shotgun
   sinatra
