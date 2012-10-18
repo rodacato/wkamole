@@ -17,6 +17,10 @@ module Helpers
         colors['colors'] = colors['colors'] & implicit_colors
         colors['background-colors'] = colors['background-colors'] & implicit_colors
         colors['borders'] = colors['borders'] & implicit_colors
+
+        colors['colors'] = colors['colors'].sort{|a| implicit_colors.index(a) }
+        colors['background-colors'] = colors['background-colors'].sort{|a| implicit_colors.index(a) }
+        colors['borders'] = colors['borders'].sort{|a| implicit_colors.index(a) }
       end
 
       colors
