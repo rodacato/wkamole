@@ -10,20 +10,19 @@ require 'RMagick'
 class AppBase < Sinatra::Base
   register Sinatra::ConfigFile
 
+  use Rack::CommonLogger
+
   helpers Sinatra::ContentFor, Helpers::Base, Helpers::Colors
 
   configure(:production, :development) do
-    enable :logging, :dump_errors, :raise_errors, :static
+    enable :logging, :dump_errors, :raise_errors, :show_exceptions, :static
+  end
+
+  configure :production do
+    require 'newrelic_rpm'
   end
 
   config_file '../config/config.yml'
-
-  error do
-    e = request.env['sinatra.error']
-    puts e.to_s
-    puts e.backtrace.join("\n")
-    "Application Error!"
-  end
 
   before do
     logger.info params

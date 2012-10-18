@@ -9,6 +9,7 @@ gem 'unicorn'
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem "rmagick", "2.12.0", :require => 'RMagick'
 gem 'color'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'shotgun'
