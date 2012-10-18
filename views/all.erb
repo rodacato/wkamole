@@ -6,7 +6,6 @@
       var site = encodeURIComponent('<%= params[:site] %>');
 
       $.getJSON('/api/v1/colors.json?site=' + site, function(data) {
-        console.log(data);
 
         // Load explicit colors
         var explicit = data['explicit'];
